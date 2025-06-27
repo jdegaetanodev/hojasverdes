@@ -10,9 +10,8 @@
 }
 
 .nav-link:hover {
-    color: #FF8000;
+    color: #FF8000 !important; 
 }
-
 
 .fa-cart-plus {
     font-size: 2rem;
@@ -24,7 +23,32 @@
     cursor:pointer;
 }
 
+#btn-add:hover {
+    background-color: #FF8000;
+    color: #000;
+}
+
+.num-articulos {
+    padding-left: 1rem;
+    color: #FFF;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.cart-container {
+    display: flex;
+    align-items: center;
+    background-color: #0f0e0e;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-radius: 1rem;
+}
+
 footer {
     height: 5rem;
     font-size: 1rem;
+}
+
+.navbar-toggler-icon {
+    color: #FFF;
 }

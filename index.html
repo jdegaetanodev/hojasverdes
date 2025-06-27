@@ -26,14 +26,13 @@
         <div  class="container">
 
             <!-- <navbar> -->
-
-            <nav class="navbar navbar-expand-lg pt-3 pb-3">
+            
+            <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid">
 
                     <a class="navbar-brand" href="#">
                         <img src="img/logo.png" alt="">
-                    </a>
-                    
+                    </a>                                      
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -72,12 +71,17 @@
                             </li>                           
 
                         </ul>
+                        
 
-                        <i class="fa-solid fa-cart-plus"></i>
+                        <span class="cart-container">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <p class="num-articulos mt-3">5</p>
+                        </span>
 
                     </div> <!--</collapsable-->                                        
 
                 </div> <!--</container fuid-->
+
             </nav>
 
             <!-- </navbar> -->            
@@ -99,12 +103,35 @@
 
                 <!-- Producto -->
                 <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="img/bananas.jpg" class="card-img-top" alt="...">
 
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="row pb-2">
+                            <div class="col-12 text-center">
+                                <h4 class="card-title">Manzanas Rojas</h4>                                
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <p class="card-text">Dulces y crujientes, ideales para un snack saludable en cualquier momento</p>                        
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center text-center mt-3">
+
+                            <div class="col-sm-12 justify-content-end mb-2">
+                                <h4>$ 2.500</h4>
+                            </div>                            
+
+                            <div class="col-sm-12 d-flex justify-content-center mb-2">
+                                <a href="javascript:add(5);" class="btn bg-verde text-white rounded" id="btn-add">
+                                    SUMAR AL CARRITO
+                                </a>                                
+                            </div>                            
+
+                        </div>                        
+                        
                     </div>
                 </div>
                 <!-- /Producto -->
