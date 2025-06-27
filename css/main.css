@@ -1,0 +1,30 @@
+
+.bg-verde {
+    background-color: #2d572c;
+}
+
+.nav-link {
+    color: #FFF;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #FF8000;
+}
+
+
+.fa-cart-plus {
+    font-size: 2rem;
+    color: #FFF;
+}
+
+.fa-cart-plus:hover {
+    color: #FF8000;
+    cursor:pointer;
+}
+
+footer {
+    height: 5rem;
+    font-size: 1rem;
+}
