@@ -21,7 +21,7 @@
 
     <!-- Menu -->
 
-    <header class="container-fluid bg-verde">
+    <header class="container-fluid bg-verde fixed-top">
 
         <div  class="container">
 
@@ -65,9 +65,9 @@
                         </ul>
                         
 
-                        <span class="cart-container">
-                            <i class="fa-solid fa-cart-plus"></i>
-                            <p class="num-articulos mt-3">5</p>
+                        <span class="cart-container" onclick="mostrarOcultarCarrito()">
+                            <i class="fa-solid fa-cart-plus"></i>                            
+                            <p class="num-articulos mt-3" id="cant_carrito">0</p>
                         </span>
 
                     </div> <!--</collapsable-->                                        
@@ -84,10 +84,15 @@
 
     <!-- /Menu -->
 
+    <div class="container">
+        <div class="row d-flex justify-content-end mt-1">
+            <div class="divCarrito pt-5 mt-5" id="divCarrito"></div>
+        </div>
+    </div>
 
     <!-- Productos -->
 
-    <main class="container pt-5">
+    <main class="container pt-5 mt-5">
 
         <div id="lista_productos" class="me-auto"></div>       
 

@@ -64,3 +64,15 @@ footer {
     object-position: center;
     display: block;
 }
+
+/* Div Carrito */
+.divCarrito {
+    position: fixed;
+    z-index: 500;
+    max-width: 350px;
+    min-height: 1vh;
+    border: #CCC 1px solid;
+    background-color: #FFF;
+    border-radius: 5px;
+    display: none;
+}
