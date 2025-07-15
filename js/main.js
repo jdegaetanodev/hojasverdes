@@ -1,11 +1,32 @@
-
 // Array donde se van a almacenar los articulos del carrito
-const carrito = [];
+let carrito = [];
+let productos = []; // Array para almacenar los productos del JSON
 
 // Div en el que se van a mostrar 
 const divCarrito = document.getElementById('divCarrito');    
 
+const carritoGuardado = localStorage.getItem("carrito");
 
+
+function cargarJson() {
+
+    fetch('js/datos.json')
+
+        .then(res => res.json())
+        .then(data => {
+            
+            productos = data.productos;                
+            categorias('1'); // Establezco una categoria por defecto
+        });    
+}
+
+cargarJson();
+
+if (carritoGuardado) 
+{
+    carrito = JSON.parse(carritoGuardado);
+    mostrarCarrito();  // Para que se muestre lo guardado
+}
 
 function categorias(cat) {
 
@@ -78,7 +99,7 @@ function categorias(cat) {
                             <div class="row align-items-center text-center mt-3">
 
                                 <div class="col-sm-12 justify-content-end mb-2">
-                                    <h4>${producto.precio}</h4>
+                                    <h4>$ ${producto.precio}</h4>
                                 </div>                            
 
                                 <div class="col-sm-12 d-flex justify-content-center mb-2">
@@ -96,16 +117,13 @@ function categorias(cat) {
                 </div> <!-- /col-sm-3 -->
             
             `
-           } // Cierre del If
+        } // Cierre del If
 
         })
 
     contenedorProductos.appendChild(contenedorProducto);
 
 } // Cierre Función que filtra por categorias
-
-// Establezco una categoria por defecto
-categorias('1')
 
 function carritoAdd(id_producto)
 {
@@ -118,11 +136,39 @@ function carritoAdd(id_producto)
     if(item) // El producto ya existe en el carrito > actualizar cantidad
     {
         item.cantidad++;
+
+        Toastify({
+            
+            text: "La cantidad del producto se ha actualizado",
+            duration: 2000,
+            gravity: "bottom", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`,
+            style: {
+                background: "#2d572c", 
+                color: "#fff", // texto blanco
+            }            
+
+        }).showToast();
     }
     else // No existe en el carrito > agregarlo
     {
         carrito.push({...producto, cantidad:1});
+
+        Toastify({
+
+            text: "Producto agregado al carrito",
+            duration: 2000,
+            gravity: "bottom", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`,
+            style: {
+                background: "#2d572c", 
+                color: "#fff", // texto blanco
+            }                        
+
+        }).showToast();        
     }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 
     actualizarTotal(carrito.length);
     mostrarCarrito();
@@ -140,39 +186,80 @@ function mostrarCarrito()
     
     let total = 0;
 
-    // Recorro los elementos del carrito
-    carrito.forEach(item => {
+    if(carrito.length === 0)
+    {
+        const divVacio = document.createElement("div");
+        divVacio.innerHTML = `<p class="text-center">El carrito esta vacio</p>`;
+        divCarrito.appendChild(divVacio);
+    }
+    else
+    {
+        // Mostrar titulos
+        const divTitulos = document.createElement("div");
 
-        // Crear el div para cada fila
-        const div = document.createElement("div");
+        divTitulos.classList.add("row", "p-2", "fw-bold");
 
-        div.classList.add("row");
-        div.classList.add("p-2");
+        divTitulos.innerHTML = `
+            <div class="col-6">Producto</div>
+            <div class="col-2">Detalle</div>
 
-        div.innerHTML = `
-
-            <div class="col-6 border-bottom">${item.nombre}</div>
-            <div class="col-4 border-bottom">$${item.precio * item.cantidad}</div>
-
-            <div class="col-2 border-bottom">
-                <a href="javascript:eliminarDelCarrito(${item.id})">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                </a>
-            </div>
+            <div class="col-2"></div>
         `;
-        
-        divCarrito.appendChild(div);
-        
-        total += item.precio * item.cantidad;
-    });
+        divCarrito.appendChild(divTitulos);
 
-    //totalSpan.innerText = total;      
+        // Recorro los elementos del carrito
+        carrito.forEach(item => {
 
+            // Crear el div para cada fila
+            const div = document.createElement("div");
+
+            div.classList.add("row");
+            div.classList.add("p-2");
+
+            div.innerHTML += `
+
+                <div class="col-6 border-bottom">${item.nombre}</div>
+                <div class="col-4 border-bottom">${item.cantidad} x $ ${item.precio * item.cantidad}</div>
+
+                <div class="col-2 border-bottom">
+                    <a href="javascript:eliminarArticulo(${item.id})">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </a>
+                </div>
+            `;
+
+            divCarrito.appendChild(div);
+
+            total += item.precio * item.cantidad; // Acumula el total de los productos
+            
+        });    
+        
+
+        // Mostrar el total debajo de la lista
+        const divTotal = document.createElement("div");
+        divTotal.classList.add("row", "p-2", "fw-bold");
+        divTotal.innerHTML = `
+            <div class="col-6">Total:</div>
+            <div class="col-6 text-right">$${total.toFixed(2)}</div>
+        `;
+        divCarrito.appendChild(divTotal);
+    }
+
+    actualizarTotal(carrito.length);
 }
 
 function eliminarArticulo(id_producto)
 {
+    // Busca el producto con el Id recibido por parámetro dentro del array general de productos
+    const index = carrito.findIndex(producto => producto.id === id_producto);
 
+    if (index !== -1) 
+    {
+        carrito.splice(index, 1);  // elimina 1 elemento en la posición encontrada
+    }
+
+    mostrarCarrito();
+    actualizarTotal(carrito.length);
 }
 
 function mostrarOcultarCarrito()

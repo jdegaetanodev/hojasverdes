@@ -65,6 +65,15 @@ footer {
     display: block;
 }
 
+.fa-circle-xmark {
+    color: red;
+    font-size: 1.5rem;
+}
+
+.fa-circle-xmark:hover {
+    color: rgb(146, 48, 48);
+}
+
 /* Div Carrito */
 .divCarrito {
     position: fixed;
